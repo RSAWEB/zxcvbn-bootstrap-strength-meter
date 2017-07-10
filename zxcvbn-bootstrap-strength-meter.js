@@ -29,44 +29,46 @@
 		});
 
 		function UpdateProgressBar() {
-			var progressBar = settings.progressBar;
+			var $progressBarWrapper = $(settings.progressBar);
+			var $progressBar = $progressBarWrapper.find('.bar');
 			var password = $(settings.passwordInput).val();
+
 			if (password) {
 				var result = zxcvbn(password, settings.userInputs);
 				//result.score: 0, 1, 2, 3 or 4 - if crack time is less than 10**2, 10**4, 10**6, 10**8, Infinity.
 				var scorePercentage = (result.score + 1) * 20;
-				$(progressBar).css('width', scorePercentage + '%');
+				$progressBar.css('width', scorePercentage + '%');
 
 				if (result.score == 0) {
 					//weak
-					$(progressBar).removeClass(settings.allProgressBarClasses).addClass(settings.progressBarClass0);
-					$(progressBar).html(settings.ratings[0]);
+					$progressBarWrapper.removeClass(settings.allProgressBarClasses).addClass(settings.progressBarClass0);
+					$progressBar.html(settings.ratings[0]);
 				}
 				else if (result.score == 1) {
 					//normal
-					$(progressBar).removeClass(settings.allProgressBarClasses).addClass(settings.progressBarClass1);
-					$(progressBar).html(settings.ratings[1]);
+					$progressBarWrapper.removeClass(settings.allProgressBarClasses).addClass(settings.progressBarClass1);
+					$progressBar.html(settings.ratings[1]);
 				}
 				else if (result.score == 2) {
 					//medium
-					$(progressBar).removeClass(settings.allProgressBarClasses).addClass(settings.progressBarClass2);
-					$(progressBar).html(settings.ratings[2]);
+					$progressBarWrapper.removeClass(settings.allProgressBarClasses).addClass(settings.progressBarClass2);
+					$progressBar.html(settings.ratings[2]);
 				}
 				else if (result.score == 3) {
 					//strong
-					$(progressBar).removeClass(settings.allProgressBarClasses).addClass(settings.progressBarClass3);
-					$(progressBar).html(settings.ratings[3]);
+					$progressBarWrapper.removeClass(settings.allProgressBarClasses).addClass(settings.progressBarClass3);
+					$progressBar.html(settings.ratings[3]);
 				}
 				else if (result.score == 4) {
 					//very strong
-					$(progressBar).removeClass(settings.allProgressBarClasses).addClass(settings.progressBarClass4);
-					$(progressBar).html(settings.ratings[4]);
+					$progressBarWrapper.removeClass(settings.allProgressBarClasses).addClass(settings.progressBarClass4);
+					$progressBar.html(settings.ratings[4]);
 				}
 			}
 			else {
-				$(progressBar).css('width', '0%');
-				$(progressBar).removeClass(settings.allProgressBarClasses).addClass(settings.progressBarClass0);
-				$(progressBar).html('');
+				$progressBarWrapper.removeClass(settings.allProgressBarClasses).addClass(settings.progressBarClass0);
+				$progressBar.css('width', '0%')
+					.html('');
 			}
 		}
 	};
